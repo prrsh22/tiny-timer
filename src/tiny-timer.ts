@@ -53,6 +53,7 @@ class Timer extends EventEmitter {
       alert('차감이 불가합니다!');
       return;
     } else {
+      this._duration += amountInMs;
       this._endTime += amountInMs;
       this.emit('durationChanged', this.duration);
     }
