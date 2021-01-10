@@ -74,6 +74,8 @@ class Timer extends EventEmitter {
       this.stop()
       this.emit('tick', this._stopwatch ? this._duration : 0)
       this.emit('done')
+      // 타이머 끝나면 또 defaultDuration으로
+      this.changeDuration(this._defaultDuration - this._duration)
     } else {
       this.emit('tick', this.time)
     }
