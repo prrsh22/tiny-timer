@@ -44,6 +44,18 @@ class Timer extends EventEmitter {
     this._pauseTime = 0
     this._changeStatus('running')
   }
+  
+  //시간 분단위로 추가, 차감하는 함수: 추가의 경우 amount가 양수, 차감의 경우 음수
+  // amount는 ms 단위 말고 분단위로. 함수 내에서 ms화
+  public changeDuration (amount: number) {
+    const amountInMs = amount * 60 * 1000;
+    if (this._endTime + amountInMs) {
+      alert('1분 미만의 시간이 남아있어 차감이 불가합니다!');
+      return;
+    } else {
+      this._endTime += amountInMs;
+    }
+  }
 
   private _changeStatus (status: Status) {
     this._status = status
