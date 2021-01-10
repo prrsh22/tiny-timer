@@ -9,9 +9,11 @@ declare class Timer extends EventEmitter {
     private _pauseTime;
     private _status;
     private _timeoutID?;
-    constructor({ interval, stopwatch }?: {
+    private _defaultDuration;
+    constructor({ interval, stopwatch, defaultDuration }?: {
         interval?: number | undefined;
         stopwatch?: boolean | undefined;
+        defaultDuration?: number | undefined;
     });
     start(duration: number, interval?: number): void;
     stop(): void;

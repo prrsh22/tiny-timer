@@ -3,11 +3,10 @@ import { EventEmitter } from 'events';
 class Timer extends EventEmitter {
   constructor({
     interval = 1000,
-    stopwatch = false
+    stopwatch = false,
+    defaultDuration = 30 * 1000 * 60
   } = {}) {
     super();
-    this._duration = 0;
-    this._endTime = 0;
     this._pauseTime = 0;
     this._status = 'stopped';
 
@@ -25,6 +24,9 @@ class Timer extends EventEmitter {
 
     this._interval = interval;
     this._stopwatch = stopwatch;
+    this._defaultDuration = defaultDuration;
+    this._duration = defaultDuration;
+    this._endTime = Date.now() + defaultDuration;
   }
 
   start(duration, interval) {
@@ -40,7 +42,9 @@ class Timer extends EventEmitter {
   }
 
   stop() {
-    if (this._timeoutID) clearInterval(this._timeoutID);
+    if (this._timeoutID) clearInterval(this._timeoutID); // 스탑시 기본 duration으로 duration 재설정
+
+    this.changeDuration(this._defaultDuration - this._duration);
 
     this._changeStatus('stopped');
   }
@@ -58,19 +62,16 @@ class Timer extends EventEmitter {
     this._pauseTime = 0;
 
     this._changeStatus('running');
-  } //시간 분단위로 추가, 차감하는 함수: 추가의 경우 amount가 양수, 차감의 경우 음수
-  // amount는 ms 단위 말고 분단위로. 함수 내에서 ms화
+  } //시간 ms단위로 추가, 차감하는 함수: 추가의 경우 amount가 양수, 차감의 경우 음수
 
 
   changeDuration(amount) {
-    const amountInMs = amount * 60 * 1000;
-
-    if (this._endTime + amountInMs < 3000) {
+    if (this._endTime + amount < 3000) {
       alert('차감이 불가합니다!');
       return;
     } else {
-      this._duration += amountInMs;
-      this._endTime += amountInMs;
+      this._duration += amount;
+      this._endTime += amount;
       this.emit('durationChanged', this._duration, amount);
     }
   }
