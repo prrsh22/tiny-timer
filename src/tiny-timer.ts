@@ -49,8 +49,8 @@ class Timer extends EventEmitter {
   // amount는 ms 단위 말고 분단위로. 함수 내에서 ms화
   public changeDuration (amount: number) {
     const amountInMs = amount * 60 * 1000;
-    if (this._endTime + amountInMs) {
-      alert('1분 미만의 시간이 남아있어 차감이 불가합니다!');
+    if (this._endTime + amountInMs < 3000) {
+      alert('차감이 불가합니다!');
       return;
     } else {
       this._endTime += amountInMs;

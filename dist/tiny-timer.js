@@ -65,8 +65,8 @@ class Timer extends events.EventEmitter {
   changeDuration(amount) {
     const amountInMs = amount * 60 * 1000;
 
-    if (this._endTime + amountInMs) {
-      alert('1분 미만의 시간이 남아있어 차감이 불가합니다!');
+    if (this._endTime + amountInMs < 3000) {
+      alert('차감이 불가합니다!');
       return;
     } else {
       this._endTime += amountInMs;
