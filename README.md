@@ -33,8 +33,10 @@ timer.start(5000) // run for 5 seconds
 
 ## Usage
 
-### `timer = new Timer({ interval: 1000, stopwatch: false })`
+### `timer = new Timer({ interval: 1000, stopwatch: false, defaultDuration: 30 * 1000 * 60 })`
 Optionally set the refresh `interval` in ms, or `stopwatch` mode instead of countdown.
+Added when customizing: optionally set default duration if timer is used repeatedly.
+(Duration would be set to default if timer is stopped)
 
 ### `timer.start(duration [, interval])` {
 Starts timer running for a `duration` specified in ms.
