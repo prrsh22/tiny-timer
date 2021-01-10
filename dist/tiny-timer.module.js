@@ -16,7 +16,9 @@ class Timer extends EventEmitter {
       if (Date.now() >= this._endTime) {
         this.stop();
         this.emit('tick', this._stopwatch ? this._duration : 0);
-        this.emit('done');
+        this.emit('done'); // 타이머 끝나면 또 defaultDuration으로
+
+        this.changeDuration(this._defaultDuration - this._duration);
       } else {
         this.emit('tick', this.time);
       }
