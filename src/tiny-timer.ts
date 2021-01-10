@@ -55,7 +55,7 @@ class Timer extends EventEmitter {
     } else {
       this._duration += amountInMs;
       this._endTime += amountInMs;
-      this.emit('durationChanged', this.duration);
+      this.emit('durationChanged', this._duration);
     }
   }
 
